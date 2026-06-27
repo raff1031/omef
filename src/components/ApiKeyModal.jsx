@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, ExternalLink } from "lucide-react";
 
-export default function ApiKeyModal({ isOpen, onSubmit }) {
+export default function ApiKeyModal({ isOpen, onSubmit, onDemo }) {
   const [key, setKey] = useState("");
   const [showKey, setShowKey] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -132,8 +132,27 @@ export default function ApiKeyModal({ isOpen, onSubmit }) {
             disabled={loading || !key.trim()}
             className="w-full bg-omef-forest text-white rounded-lg py-2.5 text-sm font-semibold hover:bg-omef-olive transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {loading ? "Verifica in corso..." : "Accedi"}
+            {loading ? "Verifica in corso..." : "Accedi con API Key"}
           </button>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3">
+            <div className="flex-1 h-px bg-gray-200" />
+            <span className="text-xs text-omef-muted">oppure</span>
+            <div className="flex-1 h-px bg-gray-200" />
+          </div>
+
+          {/* Demo mode button */}
+          <button
+            type="button"
+            onClick={onDemo}
+            className="w-full bg-omef-light text-omef-forest border border-omef-sage/40 rounded-lg py-2.5 text-sm font-semibold hover:bg-omef-sage/20 transition-colors"
+          >
+            🌲 Prova la Demo — senza API Key
+          </button>
+          <p className="text-xs text-omef-muted text-center">
+            Risposte pre-configurate · nessun costo · nessuna registrazione
+          </p>
         </form>
       </div>
     </div>

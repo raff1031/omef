@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import ApiKeyModal from "./components/ApiKeyModal";
@@ -8,23 +8,35 @@ import DealerPage from "./pages/DealerPage";
 import SeasonPage from "./pages/SeasonPage";
 import LeadsPage from "./pages/LeadsPage";
 
-export default function App() {
-  const [apiKey, setApiKey] = useState(() => {
-    return sessionStorage.getItem("omef_api_key") || "";
-  });
+export const DEMO_KEY = '__demo__';
 
-  const modalOpen = !apiKey;
+export default function App() {
+  const [apiKey, setApiKey] = useState(
+    () => sessionStorage.getItem("omef_api_key") || ""
+  );
+
+  const [showModal, setShowModal] = useState(!apiKey);
 
   function handleApiKeySubmit(key) {
     sessionStorage.setItem("omef_api_key", key);
     setApiKey(key);
+    setShowModal(false);
+  }
+
+  function handleDemoMode() {
+    setApiKey(DEMO_KEY);
+    setShowModal(false);
   }
 
   return (
     <HashRouter>
-      <ApiKeyModal isOpen={modalOpen} onSubmit={handleApiKeySubmit} />
-      {!modalOpen && (
-        <Layout>
+      <ApiKeyModal
+        isOpen={showModal}
+        onSubmit={handleApiKeySubmit}
+        onDemo={handleDemoMode}
+      />
+      {!showModal && (
+        <Layout isDemo={apiKey === DEMO_KEY} onOpenModal={() => setShowModal(true)}>
           <Routes>
             <Route path="/" element={<ChatPage apiKey={apiKey} />} />
             <Route path="/stock" element={<StockPage />} />

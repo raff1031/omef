@@ -70,7 +70,7 @@ function Sidebar({ onClose }) {
   );
 }
 
-export default function Layout({ children }) {
+export default function Layout({ children, isDemo, onOpenModal }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const pageTitle = pageTitles[location.pathname] ?? "OMEF";
@@ -85,12 +85,7 @@ export default function Layout({ children }) {
       {/* Mobile overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 flex md:hidden">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/40"
-            onClick={() => setMobileOpen(false)}
-          />
-          {/* Sidebar panel */}
+          <div className="absolute inset-0 bg-black/40" onClick={() => setMobileOpen(false)} />
           <div className="relative z-50 flex h-full w-56 shadow-xl">
             <Sidebar onClose={() => setMobileOpen(false)} />
           </div>
@@ -99,9 +94,21 @@ export default function Layout({ children }) {
 
       {/* Main content */}
       <div className="md:ml-56 flex flex-col min-h-screen">
+        {/* Demo banner */}
+        {isDemo && (
+          <div className="bg-omef-bark/90 text-white text-xs text-center py-1.5 px-4 flex items-center justify-center gap-2">
+            <span>🌲 Modalità Demo — risposte pre-configurate</span>
+            <button
+              onClick={onOpenModal}
+              className="underline hover:no-underline font-semibold opacity-90 hover:opacity-100"
+            >
+              Usa API Key reale →
+            </button>
+          </div>
+        )}
+
         {/* Header */}
         <header className="h-14 bg-white border-b border-gray-100 flex items-center px-6 sticky top-0 z-20">
-          {/* Hamburger for mobile */}
           <button
             className="md:hidden mr-4 text-[#5A6A5C] hover:text-[#152E20] transition-colors"
             onClick={() => setMobileOpen(true)}

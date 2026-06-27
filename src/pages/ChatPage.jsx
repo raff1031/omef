@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Send, MapPin, Loader2, Bot, User, Package, Users } from 'lucide-react';
-import { chatWithClaude, classifyLead } from '../lib/claude';
+import { chatWithClaude as chatWithClaudeReal, classifyLead as classifyLeadReal } from '../lib/claude';
+import { chatWithClaude as chatWithClaude_Demo, classifyLead as classifyLead_Demo } from '../lib/demoMode';
+import { DEMO_KEY } from '../App';
 import { buildSystemPrompt } from '../lib/systemPrompt';
 import { saveLead, getLeads } from '../lib/leadTracker';
 import { getLocation, getNearestDealers } from '../lib/geo';
@@ -178,6 +180,10 @@ function NearestDealerWidget({ userLocation }) {
 // ── ChatPage (main) ───────────────────────────────────────────────────────────
 
 export default function ChatPage({ apiKey }) {
+  const isDemo = apiKey === DEMO_KEY;
+  const chatWithClaude = isDemo ? chatWithClaude_Demo : chatWithClaudeReal;
+  const classifyLead = isDemo ? classifyLead_Demo : classifyLeadReal;
+
   const [messages, setMessages] = useState([WELCOME]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
