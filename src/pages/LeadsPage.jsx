@@ -93,7 +93,7 @@ export default function LeadsPage() {
           <h2 className="text-xl font-semibold text-omef-forest">Nessun lead ancora</h2>
           <p className="text-omef-muted text-sm">Inizia una conversazione nella Chat AI</p>
           <Link
-            to="/"
+            to="/demo"
             className="mt-2 px-5 py-2 rounded-xl bg-omef-olive text-white text-sm font-medium hover:bg-omef-forest transition-colors"
           >
             Vai alla chat &rarr;

@@ -3,19 +3,19 @@ import { NavLink, useLocation } from "react-router-dom";
 import { MessageSquare, Package, MapPin, BarChart2, Users, Menu, X } from "lucide-react";
 
 const navItems = [
-  { to: "/", label: "Chat AI", icon: MessageSquare },
-  { to: "/stock", label: "Magazzino", icon: Package },
-  { to: "/dealers", label: "Concessionari", icon: MapPin },
-  { to: "/season", label: "Stagionalita'", icon: BarChart2 },
-  { to: "/leads", label: "Lead Tracker", icon: Users },
+  { to: "/demo", label: "Chat AI", icon: MessageSquare },
+  { to: "/demo/stock", label: "Magazzino", icon: Package },
+  { to: "/demo/dealers", label: "Concessionari", icon: MapPin },
+  { to: "/demo/season", label: "Stagionalita'", icon: BarChart2 },
+  { to: "/demo/leads", label: "Lead Tracker", icon: Users },
 ];
 
 const pageTitles = {
-  "/": "Chat AI",
-  "/stock": "Magazzino",
-  "/dealers": "Concessionari",
-  "/season": "Stagionalita'",
-  "/leads": "Lead Tracker",
+  "/demo": "Chat AI",
+  "/demo/stock": "Magazzino",
+  "/demo/dealers": "Concessionari",
+  "/demo/season": "Stagionalita'",
+  "/demo/leads": "Lead Tracker",
 };
 
 function Sidebar({ onClose }) {

@@ -19,7 +19,7 @@ export default function StockPage() {
 
   function handleAskAvailability(product) {
     sessionStorage.setItem('omef_prefill', 'Disponibilita ' + product.name)
-    navigate('/')
+    navigate('/demo')
   }
 
   return (
