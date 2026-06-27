@@ -1,0 +1,17 @@
+export const DEALERS = [
+  { id: 1,  name: 'AgroMeccanica Piemonte',   city: 'Asti',      province: 'AT', lat: 44.90, lon: 8.21,  tel: '0141 456 789', email: 'asti@omefgroup.com' },
+  { id: 2,  name: 'Forestale Service Nord',   city: 'Genova',    province: 'GE', lat: 44.40, lon: 8.93,  tel: '010 234 567',  email: 'ge@omefgroup.com'   },
+  { id: 3,  name: 'Verde & Bosco Srl',        city: 'Torino',    province: 'TO', lat: 45.07, lon: 7.69,  tel: '011 345 678',  email: 'to@omefgroup.com'   },
+  { id: 4,  name: 'Macchinari Forestali Est', city: 'Milano',    province: 'MI', lat: 45.46, lon: 9.19,  tel: '02 456 789',   email: 'mi@omefgroup.com'   },
+  { id: 5,  name: 'AgroPro Liguria',          city: 'La Spezia', province: 'SP', lat: 44.10, lon: 9.82,  tel: '0187 234 567', email: 'sp@omefgroup.com'   },
+  { id: 6,  name: 'Foresta & Prato',          city: 'Firenze',   province: 'FI', lat: 43.77, lon: 11.25, tel: '055 345 678',  email: 'fi@omefgroup.com'   },
+  { id: 7,  name: 'Centro Verde Emiliano',    city: 'Bologna',   province: 'BO', lat: 44.49, lon: 11.34, tel: '051 456 789',  email: 'bo@omefgroup.com'   },
+  { id: 8,  name: 'Macchine Verdi Sud',       city: 'Napoli',    province: 'NA', lat: 40.85, lon: 14.27, tel: '081 567 890',  email: 'na@omefgroup.com'   },
+  { id: 9,  name: 'Sicilia Forestale',        city: 'Palermo',   province: 'PA', lat: 38.11, lon: 13.36, tel: '091 678 901',  email: 'pa@omefgroup.com'   },
+  { id: 10, name: 'Verde Veneto',             city: 'Verona',    province: 'VR', lat: 45.44, lon: 10.99, tel: '045 789 012',  email: 'vr@omefgroup.com'   },
+  { id: 11, name: 'Foresta Toscana',          city: 'Siena',     province: 'SI', lat: 43.32, lon: 11.33, tel: '0577 234 567', email: 'si@omefgroup.com'   },
+  { id: 12, name: 'Nord Est Forestale',       city: 'Treviso',   province: 'TV', lat: 45.67, lon: 12.24, tel: '0422 345 678', email: 'tv@omefgroup.com'   },
+  { id: 13, name: 'Calabria Verde',           city: 'Cosenza',   province: 'CS', lat: 39.30, lon: 16.25, tel: '0984 456 789', email: 'cs@omefgroup.com'   },
+  { id: 14, name: 'Sardegna Forestale',       city: 'Cagliari',  province: 'CA', lat: 39.22, lon: 9.12,  tel: '070 567 890',  email: 'ca@omefgroup.com'   },
+  { id: 15, name: 'Alto Adige Forst',         city: 'Bolzano',   province: 'BZ', lat: 46.50, lon: 11.36, tel: '0471 678 901', email: 'bz@omefgroup.com'   },
+];
