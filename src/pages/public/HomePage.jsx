@@ -220,6 +220,29 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── VIDEO PROMO ── */}
+      <section className="bg-black py-0">
+        <div className="relative w-full" style={{ maxHeight: '520px', overflow: 'hidden' }}>
+          <video
+            src="/omef/omef-group-promo.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full object-cover"
+            style={{ maxHeight: '520px' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 flex items-end">
+            <div className="p-8 md:p-14">
+              <p className="text-white/60 text-xs tracking-widest uppercase mb-2">Video generato con Gemini AI</p>
+              <h2 className="text-white font-bold text-2xl md:text-4xl leading-tight">
+                OMEF GROUP in azione
+              </h2>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── AI DEMO CTA ── */}
       <section className="bg-omef-forest py-16 text-white">
         <div className="max-w-7xl mx-auto px-6">
