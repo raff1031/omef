@@ -5,31 +5,31 @@ import { PRODUCTS } from '../../data/products';
 const CATEGORIES = [
   {
     key: 'cesoie',
-    emoji: '🌲',
+    image: '/omef/images/categories/cesoie.svg',
     name: 'Cesoie',
     desc: 'Cesoie forestali per taglio preciso su ogni tonnellaggio',
   },
   {
     key: 'trince',
-    emoji: '🌿',
+    image: '/omef/images/categories/trince.svg',
     name: 'Trince',
     desc: 'Trince a mazze e a coltelli per trinciatura di vegetazione',
   },
   {
     key: 'legna',
-    emoji: '🪵',
+    image: '/omef/images/categories/legna.svg',
     name: 'Legna',
     desc: 'Spaccalegna e pinze per lavorazione e movimentazione del legname',
   },
   {
     key: 'potatura',
-    emoji: '✂️',
+    image: '/omef/images/categories/potatura.svg',
     name: 'Potatura',
     desc: 'Barre falcianti e attrezzi per potatura professionale',
   },
   {
     key: 'terreno',
-    emoji: '⛏️',
+    image: '/omef/images/categories/terreno.svg',
     name: 'Terreno',
     desc: 'Fresaceppi e attrezzature per lavorazione del suolo',
   },
@@ -141,13 +141,19 @@ export default function HomePage() {
               <Link
                 key={cat.key}
                 to={`/catalogo?cat=${cat.key}`}
-                className="group bg-white rounded-2xl p-6 flex flex-col items-center text-center gap-3 border border-omef-forest/10 hover:border-omef-bark hover:shadow-lg transition-all duration-200"
+                className="group bg-omef-forest rounded-2xl overflow-hidden flex flex-col border border-omef-forest/10 hover:border-omef-bark hover:shadow-lg transition-all duration-200"
               >
-                <span className="text-4xl group-hover:scale-110 transition-transform duration-200">
-                  {cat.emoji}
-                </span>
-                <span className="font-bold text-omef-forest text-base">{cat.name}</span>
-                <span className="text-omef-muted text-xs leading-snug">{cat.desc}</span>
+                <div className="overflow-hidden h-32">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="px-4 py-3 text-center">
+                  <span className="font-bold text-white text-base block">{cat.name}</span>
+                  <span className="text-white/60 text-xs leading-snug">{cat.desc}</span>
+                </div>
               </Link>
             ))}
           </div>

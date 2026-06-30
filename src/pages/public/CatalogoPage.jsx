@@ -3,6 +3,15 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { PRODUCTS } from '../../data/products';
 
+const CATEGORY_IMAGES = {
+  cesoie: '/omef/images/categories/cesoie.svg',
+  trince: '/omef/images/categories/trince.svg',
+  legna: '/omef/images/categories/legna.svg',
+  potatura: '/omef/images/categories/potatura.svg',
+  terreno: '/omef/images/categories/terreno.svg',
+  usato: '/omef/images/categories/usato.svg',
+};
+
 const CATEGORIES = [
   { value: 'tutti', label: 'Tutti' },
   { value: 'cesoie', label: 'Cesoie' },
@@ -35,11 +44,13 @@ function ProductCard({ product }) {
   return (
     <div className="bg-white rounded-xl border border-omef-light shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col overflow-hidden">
       {/* Top image area */}
-      <div className="relative bg-omef-light flex items-center justify-center h-36">
-        <span className="text-6xl select-none" role="img" aria-label={product.name}>
-          {product.emoji}
-        </span>
-        {/* Status badge top-right */}
+      <div className="relative overflow-hidden h-36">
+        <img
+          src={CATEGORY_IMAGES[product.category] || CATEGORY_IMAGES.usato}
+          alt={product.categoryLabel}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-omef-forest/20" />
         <div className="absolute top-3 right-3">
           <StatusBadge status={product.status} statusLabel={product.statusLabel} />
         </div>
