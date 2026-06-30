@@ -73,10 +73,10 @@ export default function PublicLayout({ children }) {
           <button
             className="omef-mobile-only"
             onClick={() => setMobileOpen((v) => !v)}
-            style={{ background: 'transparent', border: 'none', color: '#F1F5F9', cursor: 'pointer', display: 'none', padding: 6 }}
+            style={{ background: 'transparent', border: 'none', color: '#F1F5F9', cursor: 'pointer', padding: 8, alignItems: 'center', justifyContent: 'center' }}
             aria-label={mobileOpen ? 'Chiudi menu' : 'Apri menu'}
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
 
