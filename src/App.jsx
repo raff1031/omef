@@ -60,7 +60,7 @@ export default function App() {
       />
       <Routes>
         {/* PUBLIC WEBSITE */}
-        <Route path="/" element={<PublicLayout><HomePage /></PublicLayout>} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/catalogo" element={<PublicLayout><CatalogoPage /></PublicLayout>} />
         <Route path="/prodotti/:slug" element={<PublicLayout><ProdottoPage /></PublicLayout>} />
         <Route path="/chi-siamo" element={<PublicLayout><ChiSiamoPage /></PublicLayout>} />
