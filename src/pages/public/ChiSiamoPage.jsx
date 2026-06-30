@@ -1,222 +1,223 @@
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Award, Wrench, Users, Factory, Zap, HeartHandshake, ArrowRight, MapPin, Calendar } from 'lucide-react';
+import { Factory, Shield, Award, Globe2, Users, Wrench } from 'lucide-react';
 
-const stats = [
-  { value: '45', label: 'anni di esperienza', suffix: '' },
-  { value: '10+', label: 'modelli a catalogo', suffix: '' },
-  { value: '15', label: 'concessionari autorizzati', suffix: '' },
-  { value: '100%', label: 'produzione italiana', suffix: '' },
+function useReveal(delay = 0) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return { ref, className: `rv${visible ? ' on' : ''}`, style: { transitionDelay: `${delay}ms` } };
+}
+
+const VALUES = [
+  { icon: Factory, color: '#C4924A', title: 'Ciclo produttivo interno', desc: 'Dalla progettazione CAD alla realizzazione finale, ogni fase avviene nei nostri stabilimenti.' },
+  { icon: Shield, color: '#4ade80', title: 'Acciaio certificato', desc: 'Utilizziamo esclusivamente acciaio certificato e tracciabile per garantire resistenza e durata.' },
+  { icon: Wrench, color: '#f472b6', title: 'Test rigorosi', desc: 'Software di progettazione avanzati, test sui prototipi e validazione sul campo.' },
+  { icon: Globe2, color: '#60a5fa', title: '30+ paesi serviti', desc: 'Le attrezzature OMEF lavorano in oltre 30 paesi nel mondo.' },
+  { icon: Users, color: '#a78bfa', title: 'Assistenza diretta', desc: 'Garanzia e supporto tecnico direttamente dal produttore, senza intermediari.' },
+  { icon: Award, color: '#fbbf24', title: 'Made in Italy', desc: 'Tradizione e innovazione del Nord Italia, in provincia di Alessandria dal 1991.' },
 ];
 
-const timeline = [
-  {
-    year: '1980',
-    title: 'Fondazione a Basaluzzo, AL',
-    description:
-      'OMEF nasce a Basaluzzo, in provincia di Alessandria. Le prime cesoie forestali escono dalla nostra officina: robuste, precise, pensate per i boschi italiani.',
-  },
-  {
-    year: '1990',
-    title: 'Espansione della linea prodotti',
-    description:
-      'Il catalogo si amplia con trince e spaccalegna per escavatori. La capacità produttiva cresce insieme alla fiducia dei professionisti del settore.',
-  },
-  {
-    year: '2005',
-    title: 'Rete concessionari nazionale',
-    description:
-      "Raggiungiamo i 15 concessionari autorizzati su tutto il territorio italiano. L'assistenza tecnica diventa capillare, vicina a ogni cantiere.",
-  },
-  {
-    year: '2018',
-    title: 'Nuova sede produttiva',
-    description:
-      "L'ampliamento dello stabilimento di Basaluzzo porta nuovi reparti, macchinari di precisione e maggiore capacità per soddisfare la domanda crescente.",
-  },
-  {
-    year: '2026',
-    title: 'Assistente AI per la consulenza',
-    description:
-      "Lanciamo il nostro assistente digitale basato su intelligenza artificiale: i professionisti trovano il modello giusto, ricevono supporto tecnico e calcolano l'abbinamento ottimale con l'escavatore.",
-  },
-];
-
-const values = [
-  {
-    icon: Factory,
-    title: 'Qualità italiana',
-    description:
-      "Ogni componente OMEF nasce e viene lavorato in Italia. Controlliamo l'intera filiera produttiva — dai materiali grezzi al collaudo finale — per garantire standard che resistono alle condizioni più dure.",
-  },
-  {
-    icon: Zap,
-    title: 'Innovazione continua',
-    description:
-      "Quarantacinque anni non ci hanno fermato: investiamo costantemente in ricerca, nuovi materiali e tecnologie di lavorazione per offrire attrezzature sempre più efficienti e longeve.",
-  },
-  {
-    icon: HeartHandshake,
-    title: 'Servizio al cliente',
-    description:
-      "Non vendiamo solo macchine: affianchiamo ogni cliente dalla scelta del modello fino all'assistenza post-vendita, attraverso la nostra rete di concessionari specializzati.",
-  },
+const TIMELINE = [
+  { year: '1991', title: 'Fondazione', desc: 'Nasce OMEF in provincia di Alessandria, con la missione di costruire attrezzature forestali robuste e affidabili.' },
+  { year: '2000s', title: 'Espansione internazionale', desc: 'Inizia la distribuzione in Europa e Oltreoceano. La gamma cresce con nuove linee per agricoltura e manutenzione del verde.' },
+  { year: '2015', title: 'Leader del settore', desc: 'OMEF diventa riferimento mondiale per cesoie forestali, spaccalegna e trince idrauliche per escavatori.' },
+  { year: 'Oggi', title: 'Oltre 30 paesi', desc: 'Le attrezzature OMEF lavorano in più di 30 paesi, con showroom, noleggio e servizi finanziari dedicati ai professionisti.' },
 ];
 
 export default function ChiSiamoPage() {
+  const heroRv = useReveal(0);
+  const storyRv = useReveal(0);
+
   return (
-    <div className="min-h-screen">
-
-      {/* ── HERO ── */}
-      <section className="bg-omef-forest text-white py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <span className="inline-block text-omef-sage text-sm font-semibold uppercase tracking-widest mb-4">
-            La nostra storia
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-            Dal 1980, precisione nel bosco
+    <>
+      <section style={{ padding: '160px 24px 80px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          position: 'absolute', top: '15%', right: '8%', width: 460, height: 460, borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(196,146,74,.2), transparent 65%)',
+          filter: 'blur(70px)', animation: 'floatA 20s ease-in-out infinite', pointerEvents: 'none',
+        }} />
+        <div ref={heroRv.ref} className={heroRv.className} style={{ ...heroRv.style, maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 2 }}>
+          <span className="section-label">Chi siamo</span>
+          <h1 style={{ fontSize: 'clamp(38px, 5.5vw, 72px)', marginBottom: 24, maxWidth: 900 }}>
+            Trent'anni di acciaio,<br />progettato in Italia.
           </h1>
-          <p className="text-lg md:text-xl text-omef-light/80 max-w-2xl leading-relaxed">
-            Progettiamo e produciamo attrezzature forestali per escavatori nella nostra sede di
-            Basaluzzo, in provincia di Alessandria.
+          <p style={{ fontSize: 19, color: '#94a39a', maxWidth: 720, lineHeight: 1.7 }}>
+            OMEF è leader mondiale nella progettazione e produzione di attrezzature per il settore forestale,
+            agricolo e della manutenzione del verde. Dal 1991, dal Nord Italia per il mondo.
           </p>
         </div>
       </section>
 
-      {/* ── MISSION ── */}
-      <section className="bg-white py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            {/* Left: text */}
-            <div>
-              <h2 className="text-3xl font-bold text-omef-forest mb-6">La nostra missione</h2>
-              <p className="text-omef-muted leading-relaxed mb-4">
-                OMEF nasce con un obiettivo preciso: portare sul mercato attrezzature forestali che
-                uniscano la solidità della manifattura italiana alla praticità quotidiana del
-                professionista. Ogni cesoie, trinciatrice o spaccalegna che esce dal nostro
-                stabilimento deve durare, performare e ridurre i tempi di fermo macchina.
-              </p>
-              <p className="text-omef-muted leading-relaxed mb-4">
-                Con oltre 45 anni di esperienza nel settore, abbiamo affinato processi e materiali
-                per rispondere alle esigenze reali di chi lavora nei boschi, nelle aziende
-                agricole e nei cantieri di manutenzione del verde. Conosciamo ogni modello di
-                escavatore, ogni tipologia di terreno, ogni esigenza operativa.
-              </p>
-              <p className="text-omef-muted leading-relaxed">
-                Il nostro impegno non si esaurisce con la vendita: offriamo supporto tecnico
-                completo lungo tutto il ciclo di vita del prodotto, dalla consulenza iniziale alla
-                fornitura di ricambi, attraverso una rete di 15 concessionari autorizzati
-                distribuiti su tutto il territorio nazionale.
-              </p>
-            </div>
-
-            {/* Right: stats */}
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="bg-omef-paper rounded-xl p-6 border border-omef-light/60 flex flex-col justify-between"
-                >
-                  <span className="text-3xl font-bold text-omef-forest">
-                    {stat.value}
-                    {stat.suffix}
-                  </span>
-                  <span className="text-sm text-omef-muted mt-2 leading-snug">{stat.label}</span>
-                </div>
-              ))}
-            </div>
+      <section style={{ padding: '80px 24px', background: 'rgba(15,35,22,.3)' }}>
+        <div ref={storyRv.ref} className={storyRv.className} style={{ ...storyRv.style, maxWidth: 960, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 60 }}>
+          <div>
+            <span className="section-label">La nostra storia</span>
+            <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', marginBottom: 20 }}>
+              Tradizione e innovazione,<br />insieme.
+            </h2>
+            <p style={{ fontSize: 15, color: '#94a39a', lineHeight: 1.85, marginBottom: 16 }}>
+              OMEF affonda le proprie radici nel Nord Italia, in provincia di Alessandria, dove tradizione
+              meccanica e innovazione tecnica si incontrano da oltre tre decenni.
+            </p>
+            <p style={{ fontSize: 15, color: '#94a39a', lineHeight: 1.85 }}>
+              La nostra missione è la creazione di macchine robuste, efficienti e affidabili che garantiscano
+              massime performance e resistenza in ogni condizione di lavoro per i professionisti forestali e agricoli.
+            </p>
+          </div>
+          <div>
+            <span className="section-label">Il nostro processo</span>
+            <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', marginBottom: 20 }}>
+              Tutto sotto controllo.
+            </h2>
+            <p style={{ fontSize: 15, color: '#94a39a', lineHeight: 1.85, marginBottom: 16 }}>
+              L'intero ciclo produttivo si svolge internamente: dalla progettazione CAD alla realizzazione finale,
+              con utilizzo esclusivo di acciaio certificato e tracciabile.
+            </p>
+            <p style={{ fontSize: 15, color: '#94a39a', lineHeight: 1.85 }}>
+              Software avanzati di progettazione, test rigorosi sui prototipi e validazione sul campo
+              assicurano la qualità che ci ha resi un riferimento internazionale.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ── TIMELINE ── */}
-      <section className="bg-omef-paper py-16">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="flex items-center gap-2 mb-2">
-            <Calendar size={18} className="text-omef-sage" />
-            <span className="text-omef-sage text-sm font-semibold uppercase tracking-widest">
-              Tappe principali
-            </span>
-          </div>
-          <h2 className="text-3xl font-bold text-omef-forest mb-12">La nostra storia</h2>
-
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-[22px] top-0 bottom-0 w-px bg-omef-sage/30" />
-
-            <div className="space-y-10">
-              {timeline.map((item, i) => (
-                <div key={item.year} className="flex gap-6 relative">
-                  {/* Dot */}
-                  <div className="flex-shrink-0 w-11 h-11 rounded-full bg-omef-forest flex items-center justify-center z-10 shadow">
-                    <span className="text-white text-xs font-bold leading-none text-center">
-                      {item.year.slice(2)}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="pt-1 pb-2">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-omef-bark font-bold text-sm">{item.year}</span>
-                    </div>
-                    <h3 className="text-omef-forest font-semibold text-base mb-1">{item.title}</h3>
-                    <p className="text-omef-muted text-sm leading-relaxed">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── VALUES ── */}
-      <section className="bg-white py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-omef-sage text-sm font-semibold uppercase tracking-widest">
-              Cosa ci guida
-            </span>
-            <h2 className="text-3xl font-bold text-omef-forest mt-2">I nostri valori</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {values.map((v) => {
-              const Icon = v.icon;
-              return (
-                <div
-                  key={v.title}
-                  className="rounded-xl border border-omef-light bg-omef-paper p-8 flex flex-col gap-4"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-omef-forest/10 flex items-center justify-center">
-                    <Icon size={24} className="text-omef-forest" />
-                  </div>
-                  <h3 className="text-omef-forest font-bold text-lg">{v.title}</h3>
-                  <p className="text-omef-muted text-sm leading-relaxed">{v.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="bg-omef-forest text-white py-16">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <MapPin size={32} className="text-omef-sage mx-auto mb-4" />
-          <h2 className="text-3xl font-bold mb-4">Vuoi saperne di più?</h2>
-          <p className="text-omef-light/80 mb-8 text-lg leading-relaxed">
-            Contattaci per richiedere informazioni sui nostri prodotti, trovare il concessionario
-            più vicino o ricevere supporto tecnico personalizzato.
+      <section style={{ padding: '60px 24px', textAlign: 'center', background: 'linear-gradient(180deg, rgba(196,146,74,.05), rgba(196,146,74,.02))', borderTop: '1px solid rgba(196,146,74,.1)', borderBottom: '1px solid rgba(196,146,74,.1)' }}>
+        <div style={{ maxWidth: 820, margin: '0 auto' }}>
+          <p style={{ fontSize: 11, color: '#d4a050', letterSpacing: '.15em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 16 }}>
+            Il nostro impegno
           </p>
-          <Link
-            to="/contatti"
-            className="inline-flex items-center gap-2 bg-omef-bark text-white font-semibold px-8 py-4 rounded-lg hover:bg-omef-bark/90 transition-colors"
-          >
-            Contattaci ora
-            <ArrowRight size={18} />
-          </Link>
+          <p style={{
+            fontFamily: 'Syne, sans-serif', fontWeight: 800,
+            fontSize: 'clamp(28px, 4vw, 44px)',
+            lineHeight: 1.2,
+            background: 'linear-gradient(135deg, #C4924A, #d4a050, #f0c070)',
+            WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
+            margin: 0,
+          }}>
+            "Assistenza e garanzia<br />direttamente dal produttore."
+          </p>
         </div>
       </section>
 
+      <section style={{ padding: '100px 24px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <span className="section-label">I nostri valori</span>
+            <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', marginBottom: 16 }}>
+              Cosa significa scegliere OMEF.
+            </h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
+            {VALUES.map((v, i) => (
+              <ValueCard key={v.title} value={v} delay={(i % 3) * 100} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '100px 24px', background: 'rgba(15,35,22,.3)' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 60 }}>
+            <span className="section-label">La nostra evoluzione</span>
+            <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)' }}>
+              Tre decenni di crescita.
+            </h2>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            {TIMELINE.map((t, i) => (
+              <TimelineItem key={t.year} item={t} delay={i * 100} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '100px 24px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+          width: 500, height: 500, borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(196,146,74,.12), transparent 65%)',
+          filter: 'blur(60px)', pointerEvents: 'none',
+        }} />
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: 640, margin: '0 auto' }}>
+          <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', marginBottom: 18 }}>
+            Lavoriamo insieme.
+          </h2>
+          <p style={{ fontSize: 17, color: '#94a39a', marginBottom: 32, lineHeight: 1.7 }}>
+            Scopri la gamma completa o richiedi un preventivo personalizzato per il tuo escavatore.
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center' }}>
+            <Link to="/catalogo" className="btn-primary">Esplora il catalogo →</Link>
+            <Link to="/contatti" className="btn-ghost">Contattaci</Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function ValueCard({ value, delay }) {
+  const rv = useReveal(delay);
+  const Icon = value.icon;
+  return (
+    <div ref={rv.ref} className={rv.className} style={rv.style}>
+      <div style={{
+        background: 'rgba(15,35,22,.6)',
+        border: '1px solid rgba(255,255,255,.06)',
+        borderRadius: 16,
+        padding: 28,
+        height: '100%',
+      }}>
+        <div style={{
+          width: 48, height: 48, borderRadius: 12,
+          background: `${value.color}18`, color: value.color,
+          border: `1px solid ${value.color}30`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 18,
+        }}>
+          <Icon size={22} />
+        </div>
+        <h3 style={{ fontSize: 18, marginBottom: 10 }}>{value.title}</h3>
+        <p style={{ fontSize: 14, color: '#94a39a', lineHeight: 1.7, margin: 0 }}>{value.desc}</p>
+      </div>
+    </div>
+  );
+}
+
+function TimelineItem({ item, delay }) {
+  const rv = useReveal(delay);
+  return (
+    <div ref={rv.ref} className={rv.className} style={rv.style}>
+      <div style={{
+        background: 'rgba(15,35,22,.6)',
+        border: '1px solid rgba(255,255,255,.06)',
+        borderRadius: 16,
+        padding: 28,
+        display: 'grid',
+        gridTemplateColumns: '140px 1fr',
+        gap: 24,
+        alignItems: 'center',
+      }}>
+        <div style={{
+          fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 32,
+          background: 'linear-gradient(135deg, #C4924A, #d4a050)',
+          WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
+        }}>
+          {item.year}
+        </div>
+        <div>
+          <h3 style={{ fontSize: 19, marginBottom: 8 }}>{item.title}</h3>
+          <p style={{ fontSize: 14, color: '#94a39a', lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import CatalogoPage from "./pages/public/CatalogoPage";
 import ProdottoPage from "./pages/public/ProdottoPage";
 import ChiSiamoPage from "./pages/public/ChiSiamoPage";
 import ContattiPage from "./pages/public/ContattiPage";
+import ConcessionariPage from "./pages/public/ConcessionariPage";
 import ChatPage from "./pages/ChatPage";
 import StockPage from "./pages/StockPage";
 import DealerPage from "./pages/DealerPage";
@@ -60,11 +61,11 @@ export default function App() {
       />
       <Routes>
         {/* PUBLIC WEBSITE */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<PublicLayout><HomePage /></PublicLayout>} />
         <Route path="/catalogo" element={<PublicLayout><CatalogoPage /></PublicLayout>} />
         <Route path="/prodotti/:slug" element={<PublicLayout><ProdottoPage /></PublicLayout>} />
         <Route path="/chi-siamo" element={<PublicLayout><ChiSiamoPage /></PublicLayout>} />
-        <Route path="/concessionari" element={<PublicLayout><DealerPage /></PublicLayout>} />
+        <Route path="/concessionari" element={<PublicLayout><ConcessionariPage /></PublicLayout>} />
         <Route path="/contatti" element={<PublicLayout><ContattiPage /></PublicLayout>} />
 
         {/* AI DEMO — needs apiKey */}

@@ -5,3 +5,8 @@ dist
 .tmp.driveupload
 .impeccable
 .claude
+
+# Local agent skills installations
+.agents/
+skills-lock.json
+
